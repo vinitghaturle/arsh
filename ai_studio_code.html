@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You</title>
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Quicksand:wght@300;400&display=swap"
+        rel="stylesheet">
+    <!-- Animations Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #fdf5f2;
+            /* Warm beige */
+            --soft-pink: #fce4ec;
+            --lavender: #f3e5f5;
+            --text-color: #5d4037;
+            --accent: #d81b60;
+            --font-script: 'Dancing Script', cursive;
+            --font-sans: 'Quicksand', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-sans);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Paper Texture Overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* --- MOMENT 1: INTRO --- */
+        #moment1 {
+            background: var(--bg-color);
+            text-align: center;
+        }
+
+        .intro-text p {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1.5s ease;
+        }
+
+        .intro-text p.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .start-btn {
+            margin-top: 30px;
+            padding: 15px 30px;
+            border: 1px solid var(--text-color);
+            background: transparent;
+            border-radius: 50px;
+            font-family: var(--font-sans);
+            cursor: pointer;
+            transition: 0.3s;
+            opacity: 0;
+        }
+
+        .start-btn:hover {
+            background: white;
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        /* --- MOMENT 2: PERSONALIZED --- */
+        #moment2 {
+            background: var(--soft-pink);
+            text-align: center;
+        }
+
+        .friend-name {
+            font-family: var(--font-script);
+            font-size: 4rem;
+            color: var(--accent);
+            display: block;
+            margin: 20px 0;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* --- MOMENT 3: SCRAPBOOK --- */
+        .scrapbook-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            max-width: 1000px;
+        }
+
+        .polaroid {
+            background: white;
+            padding: 15px 15px 40px 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: 0.4s;
+            max-width: 250px;
+        }
+
+        .polaroid img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: #eee;
+            /* Placeholder */
+        }
+
+        .polaroid video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        .polaroid p {
+            font-family: var(--font-script);
+            margin-top: 15px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .polaroid:nth-child(even) {
+            transform: rotate(3deg);
+        }
+
+        .polaroid:nth-child(odd) {
+            transform: rotate(-3deg);
+        }
+
+        .polaroid:hover {
+            transform: rotate(0deg) scale(1.05);
+            z-index: 10;
+        }
+
+        /* --- MOMENT 4: THE LETTER --- */
+        #moment4 {
+            background: white;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        .letter-content {
+            font-family: var(--font-script);
+            font-size: 1.8rem;
+            color: #444;
+        }
+
+        /* --- MOMENT 5: SURPRISE --- */
+        .gift-box {
+            font-size: 5rem;
+            cursor: pointer;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-20px);
+            }
+
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .hidden-content {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Utility */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 20px;
+            font-size: 0.8rem;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="particles" id="particles"></div>
+
+    <!-- MOMENT 1 -->
+    <section id="moment1">
+        <div class="intro-text">
+            <p class="seq">Hey...</p>
+            <p class="seq">Arshiya whatsup Happy New Year</p>
+            <p class="seq">It’s something for your birthyday hope you like it</p>
+            <button class="start-btn" id="startBtn">Explore forward →</button>
+        </div>
+    </section>
+
+    <!-- MOMENT 2 -->
+    <section id="moment2">
+        <div data-aos="fade-up">
+            <p>This website is for you</p>
+            <p>Not fancy. Not perfect.</p>
+            <p>Just a try to make my wish a little unique</p>
+            <span class="friend-name">Aunty Jiiiiiiii</span> <!-- CHANGE NAME HERE -->
+            <p>✨ My buddy & my favorite Aunty ✨</p>
+        </div>
+        <div class="scroll-indicator">Scroll slowly...</div>
+    </section>
+
+    <!-- MOMENT 3 -->
+    <section id="moment3">
+        <h2 style="margin-bottom: 50px; font-weight: 300;">Little moments, big memories</h2>
+        <div class="scrapbook-grid">
+            <!-- Polaroid 1 -->
+            <div class="polaroid" data-aos="zoom-in">
+                <video autoplay muted loop playsinline>
+                    <source src="https://drive.google.com/file/d/1-4-taFol0dUvpgEl6mpU0962sG_o2Dj0/view?usp=drivesdk"
+                        type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <p>That day at the beach...</p>
+            </div>
+
+            <!-- Polaroid 2 -->
+            <div class="polaroid" data-aos="zoom-in" data-aos-delay="200">
+                <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=400&q=80"
+                    alt="Memory">
+                <p>Coffee and 3am talks.</p>
+            </div>
+            <!-- Polaroid 3 -->
+            <div class="polaroid" data-aos="zoom-in" data-aos-delay="400">
+                <img src="https://images.unsplash.com/photo-1523301343968-6a6ebf63c672?auto=format&fit=crop&w=400&q=80"
+                    alt="Memory">
+                <p>We didn't plan this day, but it stayed.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- MOMENT 4 -->
+    <section id="moment4">
+        <div class="letter-content" data-aos="fade-up">
+            <p>To my best friend,</p>
+            <br>
+            <p>I was thinking about everything we've been through lately. Life gets so loud sometimes that we forget to
+                stop and say the important things.</p>
+            <br>
+            <p>Thank you for being the person who knows exactly what I’m thinking without me saying a word. Thank you
+                for the laughs that turn into silent wheezing and the support that feels like home.</p>
+            <br>
+            <p>You are rare, you are kind, and I am so lucky to walk through life with you.</p>
+            <br>
+            <p>Happy Birthday.</p>
+        </div>
+    </section>
+
+    <!-- MOMENT 5 -->
+    <section id="moment5">
+        <p style="margin-bottom: 20px;">Click this only if you’re ready 👀</p>
+        <div class="gift-box" id="giftBox">🎁</div>
+        <div class="hidden-content" id="surprise">
+            <h2 class="friend-name">You are amazing!</h2>
+            <p>1. You make the best snacks.<br>2. Your laugh is contagious.<br>3. You are 100% the 'main character'.</p>
+            <p style="margin-top: 20px; font-size: 0.9rem;">(And yes, I still have that embarrassing video of you from
+                2019.)</p>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+    <script>
+        // Initialize Animations
+        AOS.init({ duration: 1500, once: false });
+
+        // Moment 1 Sequence
+        const lines = document.querySelectorAll('.seq');
+        const btn = document.getElementById('startBtn');
+
+        lines.forEach((line, index) => {
+            setTimeout(() => {
+                line.classList.add('visible');
+            }, index * 1500);
+        });
+
+        setTimeout(() => {
+            btn.style.opacity = '1';
+        }, lines.length * 1500);
+
+        btn.addEventListener('click', () => {
+            document.getElementById('moment2').scrollIntoView();
+        });
+
+        // Moment 5 Surprise
+        const gift = document.getElementById('giftBox');
+        const surprise = document.getElementById('surprise');
+
+        gift.addEventListener('click', () => {
+            gift.style.display = 'none';
+            surprise.style.display = 'block';
+
+            // Confetti Effect
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#fce4ec', '#f3e5f5', '#d81b60']
+            });
+        });
+
+        // Floating Particles Background
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.innerHTML = '✨';
+            particle.style.position = 'absolute';
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.top = Math.random() * 100 + 'vh';
+            particle.style.opacity = Math.random();
+            particle.style.fontSize = (Math.random() * 10 + 10) + 'px';
+            particle.style.pointerEvents = 'none';
+            particle.style.transition = 'all 5s linear';
+
+            document.getElementById('particles').appendChild(particle);
+
+            setTimeout(() => {
+                particle.style.transform = `translateY(-100px) translateX(${Math.random() * 50}px)`;
+                particle.style.opacity = 0;
+            }, 100);
+
+            setTimeout(() => {
+                particle.remove();
+            }, 5000);
+        }
+
+        setInterval(createParticle, 500);
+
+    </script>
+</body>
+
+</html>
