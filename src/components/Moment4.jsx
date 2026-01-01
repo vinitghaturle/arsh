@@ -2,15 +2,15 @@ export default function Moment4() {
   return (
     <section id="moment4">
       <div className="letter-content" data-aos="fade-up">
-        <p>To my best friend,</p>
+        <p>To Arshiya,</p>
         <br />
-        <p>I was thinking about everything we've been through lately. Life gets so loud sometimes that we forget to stop and say the important things.</p>
+        <p>Somewhere between random conversations, shared laughs, and just being there without trying too hard, you became someone I genuinely value.</p>
         <br />
-        <p>Thank you for being the person who knows exactly what I’m thinking without me saying a word. Thank you for the laughs that turn into silent wheezing and the support that feels like home.</p>
+        <p>Thank you for being easy to talk to, easy to trust, and easy to laugh with. Thank you for the moments that didn’t need planning and the support that never felt forced.</p>
         <br />
-        <p>You are rare, you are kind, and I am so lucky to walk through life with you.</p>
+        <p>Happy Birthday, Arsh.</p>
         <br />
-        <p>Happy Birthday.</p>
+        <p>Have the kind of year you truly deserve.</p>
       </div>
     </section>
   );

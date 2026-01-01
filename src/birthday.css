@@ -128,7 +128,7 @@ section {
 
 .polaroid {
     background: white;
-    padding: 15px 15px 40px 15px;
+    padding: 15px 15px 80px 15px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     transition: 0.4s;
     max-width: 320px;
@@ -149,7 +149,7 @@ section {
     border-radius: 6px;
 }
 
-.polaroid p { font-family: var(--font-script); margin-top: 15px; text-align: center; font-size: 1.2rem; }
+.polaroid p { font-family: var(--font-script); margin-top: 5px; text-align: center; font-size: 1.2rem; font-weight: 400; -webkit-text-fill-color: black; }
 
 .polaroid:nth-child(even) { transform: rotate(3deg); }
 .polaroid:nth-child(odd) { transform: rotate(-3deg); }
@@ -162,7 +162,7 @@ section {
 .gift-box { font-size: 5rem; cursor: pointer; animation: bounce 2s infinite; }
 @keyframes bounce { 0%,20%,50%,80%,100% { transform: translateY(0); } 40% { transform: translateY(-20px);} 60% { transform: translateY(-10px);} }
 
-.hidden-content { display: none; text-align: center; margin-top: 20px; }
+.hidden-content {  text-align: center; margin-top: 20px; }
 
 .scroll-indicator { position: absolute; bottom: 20px; font-size: 0.8rem; opacity: 0.5; }
 
